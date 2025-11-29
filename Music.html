@@ -1,17 +1,84 @@
 <!DOCTYPE html>
 <html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+    #playerBox{
+        position: fixed;
+        bottom: 16px;
+        right: 16px;
+        background: rgba(0,0,0,.65);
+        color: #fff;
+        padding: 10px 14px;
+        border-radius: 10px;
+        backdrop-filter: blur(6px);
+        font-family: Arial, sans-serif;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        z-index: 99999;
+        transition: .25s;
+    }
+    #playerBox:hover{ background: rgba(0,0,0,.8); }
+
+    #btnPlay{
+        border: none;
+        background: #fff;
+        color: #000;
+        width: 32px;
+        height: 32px;
+        font-size: 14px;
+        border-radius:50%;
+        cursor:pointer;
+        font-weight: bold;
+        transition:.25s;
+    }
+    #btnPlay:hover{ transform: scale(1.08); }
+
+    #title{
+        font-size:13px;
+        opacity:.9;
+        max-width:140px;
+        white-space:nowrap;
+        overflow:hidden;
+        text-overflow:ellipsis;
+    }
+</style>
+</head>
 <body>
+
 <audio id="bgm" autoplay loop playsinline>
     <source src="TujuhBelas.mp3" type="audio/mpeg">
 </audio>
 
+<div id="playerBox">
+    <button id="btnPlay">❚❚</button>
+    <div id="title">Now Playing: Tulus - Tujuh Belas</div>
+</div>
+
 <script>
-    const audio = document.getElementById("bgm");
-    audio.play().catch(() => {
-        audio.muted = true;
+const audio = document.getElementById("bgm");
+const btn = document.getElementById("btnPlay");
+
+// autoplay bypass
+audio.play().catch(()=>{
+    audio.muted = true;
+    audio.play();
+    document.addEventListener("click",()=> audio.muted=false,{once:true});
+});
+
+// tombol play/pause
+btn.onclick = () =>{
+    if(audio.paused){
         audio.play();
-        document.addEventListener("click", () => audio.muted = false, { once:true });
-    });
+        btn.textContent="❚❚";
+    }else{
+        audio.pause();
+        btn.textContent="▶";
+    }
+};
 </script>
+
 </body>
 </html>
