@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<body>
+<audio id="bgm" autoplay loop playsinline></audio>
+
+<script>
+    const audio = document.getElementById("bgm");
+    audio.src = "y2meta.vip - TULUS - Tujuh Belas (Official Music Video) (320 KBps).mp3"; // → GANTI URL AUDIO KAMU
+
+    audio.play().catch(() => {
+        audio.muted = true;
+        audio.play();
+        document.addEventListener("click", () => audio.muted = false, { once:true });
+    });
+</script>
+
+</body>
+</html>
